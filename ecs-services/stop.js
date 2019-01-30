@@ -14,23 +14,19 @@ module.exports.handler = function(event, context) {
 
       ecs.listTagsForResource({ resourceArn: clusterArn }, function(err, data) {
         if (err) { console.log(err, err.stack); return; }
-          
+
         var tags = {};
         data.tags.forEach(function(tag) { tags[tag.key] = tag.value; });
         if (!tags[tagName] || !enabledValues.includes(tags[tagName])) return;
-        
+
         var cluster = clusterArn.split("/")[1];
-        ecs.describeClusters({clusters: [cluster]}, function(err, data) {
+        ecs.listServices({cluster: cluster}, function(err, data) {
           if (err) { console.log(err, err.stack); return }
 
-          ecs.listServices({cluster: data.clusters[0].clusterName}, function(err, data) {
-            if (err) { console.log(err, err.stack); return }
-            
-            var service = clusterArn.split("/")[1];
-            ecs.updateService({cluster: cluster, service: service, desiredCount: 0}, function(err, data) {
-              if (err) console.log(err, err.stack);
-              else     console.log(data);
-            });
+          var service = clusterArn.split("/")[1];
+          ecs.updateService({cluster: cluster, service: service, desiredCount: 0}, function(err, data) {
+            if (err) console.log(err, err.stack);
+            else     console.log(data);
           });
         });
       });

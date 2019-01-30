@@ -20,18 +20,14 @@ module.exports.handler = function(event, context) {
         if (!tags[tagName] || !enabledValues.includes(tags[tagName])) return;
 
         var cluster = clusterArn.split("/")[1];
-        ecs.describeClusters({clusters: [cluster]}, function(err, data) {
+        ecs.listServices({cluster: cluster}, function(err, data) {
           if (err) { console.log(err, err.stack); return }
 
-          ecs.listServices({cluster: data.clusters[0].clusterName}, function(err, data) {
-            if (err) { console.log(err, err.stack); return }
-
-            var service = clusterArn.split("/")[1];
-            var desiredCount = tags['default-desired-count'] || 1;
-            ecs.updateService({cluster: cluster, service: service, desiredCount: desiredCount}, function(err, data) {
-              if (err) console.log(err, err.stack);
-              else     console.log(data);
-            });
+          var service = clusterArn.split("/")[1];
+          var desiredCount = tags['default-desired-count'] || 1;
+          ecs.updateService({cluster: cluster, service: service, desiredCount: desiredCount}, function(err, data) {
+            if (err) console.log(err, err.stack);
+            else     console.log(data);
           });
         });
       });

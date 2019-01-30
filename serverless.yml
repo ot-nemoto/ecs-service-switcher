@@ -9,7 +9,6 @@ provider:
     - Effect: "Allow"
       Action:
         - "ecs:listClusters"
-        - "ecs:describeClusters"
         - "ecs:listTagsForResource"
         - "ecs:listServices"
         - "ecs:updateService"
