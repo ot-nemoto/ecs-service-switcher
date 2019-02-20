@@ -23,10 +23,13 @@ module.exports.handler = function(event, context) {
         ecs.listServices({cluster: cluster}, function(err, data) {
           if (err) { console.log(err, err.stack); return }
 
-          var service = clusterArn.split("/")[1];
-          ecs.updateService({cluster: cluster, service: service, desiredCount: 0}, function(err, data) {
-            if (err) console.log(err, err.stack);
-            else     console.log(data);
+          data.serviceArns.forEach(function(serviceArn) {
+            var service = serviceArn.split("/")[1];
+
+            ecs.updateService({cluster: cluster, service: service, desiredCount: 0}, function(err, data) {
+              if (err) console.log(err, err.stack);
+              else     console.log(data);
+            });
           });
         });
       });
