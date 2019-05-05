@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "aws-sdk": "^2.382.0"
+    "aws-sdk": "^2.382.0",
+    "iconv": "2.3.4",
+    "jschardet": "2.1.0",
+    "sync-request": "6.1.0"
   }
 }

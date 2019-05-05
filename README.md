@@ -20,5 +20,8 @@
 *serverless*
 ```sh
 (cd layer/nodejs; npm install)
-serverless deploy
+(cd layer/nodejs; npm install)
+sls deploy --public_holiday_api ${uri}/holiday
 ```
+
+※ ${uri} は [public-holiday-api](https://github.com/ot-nemoto/public-holiday-api) でdeployした祝日APIを参照
