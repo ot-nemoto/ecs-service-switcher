@@ -20,7 +20,6 @@
 *serverless*
 ```sh
 (cd layer/nodejs; npm install)
-(cd layer/nodejs; npm install)
 sls deploy --public_holiday_api ${uri}/holiday
 ```
 
