@@ -1,8 +1,9 @@
+/layer/nodejs/node_modules/*
+!/layer/nodejs/node_modules/public-holiday
+
 # package directories
-node_modules
+#node_modules
 jspm_packages
 
 # Serverless directories
 .serverless
-
-layer/nodejs/node_modules
