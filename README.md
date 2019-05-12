@@ -20,7 +20,11 @@
 *serverless*
 ```sh
 (cd layer/nodejs; npm install)
-sls deploy --public_holiday_api ${uri}/holiday
+sls deploy --public_holiday_api ${uri}
 ```
 
-※ ${uri} は [public-holiday-api](https://github.com/ot-nemoto/public-holiday-api) でdeployした祝日APIを参照
+デプロイパラメータ
+
+|パラメータ|概要|必須(初期値)|
+|--|--|--|
+|--public-holiday-api|[public-holiday-api](https://github.com/ot-nemoto/public-holiday-api) でdeployした祝日APIのURL|_true_|

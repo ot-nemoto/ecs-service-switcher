@@ -15,7 +15,7 @@ provider:
       Resource: "*"
   environment:
     tag_name: ecs-service-switcher-isenabled
-    public_holiday_api: ${opt:public_holiday_api}
+    public_holiday_api: ${opt:public-holiday-api}
 
 package:
   exclude:

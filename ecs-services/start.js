@@ -26,14 +26,12 @@ module.exports.handler = function(event, context) {
         data.tags.forEach(function(tag) { tags[tag.key] = tag.value; });
         if (!tags[tagName] || !enabledValues.includes(tags[tagName])) return;
 
-        var cluster = clusterArn.split("/")[1];
-        ecs.listServices({cluster: cluster}, function(err, data) {
+        ecs.listServices({cluster: clusterArn}, function(err, data) {
           if (err) { console.log(err, err.stack); return }
 
           data.serviceArns.forEach(function(serviceArn) {
-            var service = serviceArn.split("/")[1];
             var desiredCount = tags['default-desired-count'] || 1;
-            ecs.updateService({cluster: cluster, service: service, desiredCount: desiredCount}, function(err, data) {
+            ecs.updateService({cluster: clusterArn, service: serviceArn, desiredCount: desiredCount}, function(err, data) {
               if (err) console.log(err, err.stack);
               else     console.log(data);
             });
