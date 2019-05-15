@@ -49,14 +49,14 @@ module.exports.handler = function(event, context) {
                             if (err) { console.log(err, err.stack); }
                             else {
                               console.log(data);
-                              console.info(`The desired capacity of AutoScalingGroup(${autoScalingGroup.AutoScalingGroupName}) was set to 0.`);
+                              console.info(`The desired capacity of AutoScalingGroup(${autoScalingGroup.AutoScalingGroupName}) was set to 0`);
                             }
                           });
                         }
                       });
                     });
                   });
-                  break;
+                  // break;
                 case 'FARGATE':
                   let params = {
                     cluster: clusterArn,
@@ -67,7 +67,7 @@ module.exports.handler = function(event, context) {
                     if (err) { console.log(err, err.stack); }
                     else {
                       console.debug(data);
-                      console.info(`The desired count of the ECS service(${service.serviceArn}) was set to 0.`);
+                      console.info(`The desired count of the ECS service(${service.serviceArn}) was set to 0`);
                     }
                   });
                   break;
