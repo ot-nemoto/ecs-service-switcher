@@ -1,5 +1,6 @@
 /layer/nodejs/node_modules/*
 !/layer/nodejs/node_modules/public-holiday
+!/layer/nodejs/node_modules/ecs-controller
 
 # package directories
 #node_modules
