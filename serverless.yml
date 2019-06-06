@@ -12,9 +12,6 @@ provider:
         - "ecs:listTagsForResource"
         - "ecs:listServices"
         - "ecs:updateService"
-        - "ecs:describeServices"
-        - "autoscaling:describeAutoScalingGroups"
-        - "autoscaling:SetDesiredCapacity"
       Resource: "*"
   environment:
     tag_name: ecs-service-switcher-isenabled
