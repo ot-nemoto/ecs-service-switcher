@@ -18,9 +18,16 @@
 ### デプロイ
 
 *serverless*
+
 ```sh
+# stack-nameは環境に合わせて
+uri=$(aws cloudformation describe-stacks \
+          --stack-name public-holiday-api-dev \
+          --query 'Stacks[].Outputs[?OutputKey==`ServiceEndpoint`].OutputValue' \
+          --output text)
+
 (cd layer/nodejs; npm install)
-sls deploy --public_holiday_api ${uri}
+sls deploy --public-holiday-api ${uri}
 ```
 
 デプロイパラメータ
