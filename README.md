@@ -14,6 +14,15 @@
 - 起動・停止対象から外したい場合はタグを削除。またはタグの値に上記以外を設定。
 - 起動時デフォルトではタスク数は `1` 。
 - `default-desired-count` タグを指定した場合は、その値をタスク数に設定。
+- 起動・停止対象のECSサービスに `ecs-service-switcher-isenabled`、`default-desired-count` タグを付与可能。
+- ECSサービスにタグを付与した場合、ECSクラスターに指定したタグより優先される。
+- 以下、`ecs-service-switcher-isenabled` をClusterおよびServiceのタグに付与した場合の起動・停止実行の有無。
+
+| Cluster \ Service | ON | OFF | タグなし |
+| -- | -- | -- | -- |
+| ON | 〇 | × | 〇 |
+| OFF | 〇 | × | × |
+| タグなし | 〇 | × | × |
 
 ### デプロイ
 
