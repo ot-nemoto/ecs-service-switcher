@@ -1,7 +1,7 @@
 'use strict';
 
-const PublicHoliday = require('public-holiday');
-const EcsController = require('ecs-controller');
+const PublicHoliday = require('./public-holiday.js');
+const EcsController = require('./ecs-controller.js');
 
 module.exports.handler = function(event, context) {
 

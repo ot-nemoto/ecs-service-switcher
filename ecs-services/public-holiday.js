@@ -4,7 +4,7 @@ const Iconv = require('iconv').Iconv;
 
 var PublicHoliday = function(url) {
   this.request_uri = url + '/holiday';
-}
+};
 
 PublicHoliday.prototype.isHoliday = function() {
   try {
@@ -21,6 +21,6 @@ PublicHoliday.prototype.isHoliday = function() {
     console.warn(e.message);
   }
   return false;
-}
+};
 
 module.exports = PublicHoliday;

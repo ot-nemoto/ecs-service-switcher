@@ -2,7 +2,7 @@ service: ecs-service-switcher
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   stage: dev
   region: ap-northeast-1
   iamRoleStatements:
