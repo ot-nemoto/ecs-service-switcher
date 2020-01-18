@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 var EcsController = function(tagName) {
   this.tagName = tagName;
   this.enabledValues = ['ON', 'On', 'on', 'TRUE', 'True', 'true', '1'];
-}
+};
 
 EcsController.prototype.start = async function() {
   var ecs = new AWS.ECS();
@@ -16,12 +16,18 @@ EcsController.prototype.start = async function() {
     var services = await ecs.listServices({cluster: clusterArn}).promise();
 
     for (var serviceArn of services.serviceArns) {
-      var serviceTags = await ecs.listTagsForResource({resourceArn: serviceArn}).promise();
-      var serviceSwitchValue = this.getTagValue(this.tagName, serviceTags.tags);
-      var serviceDesiredCount = this.getTagValue('default-desired-count', serviceTags.tags);
+      try {
+        var serviceTags = await ecs.listTagsForResource({resourceArn: serviceArn}).promise();
+        var serviceSwitchValue = this.getTagValue(this.tagName, serviceTags.tags);
+        var serviceDesiredCount = this.getTagValue('default-desired-count', serviceTags.tags);
+      } catch (e) {
+        console.info("The resource does not support tags.");
+      }
       var switchValue = serviceSwitchValue || clusterSwitchValue;
       var desiredCount = serviceDesiredCount || clusterDesiredCount || 1;
 
+      console.debug(`Cluster: ${clusterArn}`);
+      console.debug(`Service: ${serviceArn}`);
       console.debug(`ClusterSwitchValue: ${clusterSwitchValue}`);
       console.debug(`ServiceSwitchValue: ${serviceSwitchValue}`);
       console.debug(`SwitchValue: ${switchValue}`);
@@ -58,10 +64,16 @@ EcsController.prototype.stop = async function() {
     var services = await ecs.listServices({cluster: clusterArn}).promise();
 
     for (var serviceArn of services.serviceArns) {
-      var serviceTags = await ecs.listTagsForResource({resourceArn: serviceArn}).promise();
-      var serviceSwitchValue = this.getTagValue(this.tagName, serviceTags.tags);
+      try {
+        var serviceTags = await ecs.listTagsForResource({resourceArn: serviceArn}).promise();
+        var serviceSwitchValue = this.getTagValue(this.tagName, serviceTags.tags);
+      } catch (e) {
+        console.info("The resource does not support tags.");
+      }
       var switchValue = serviceSwitchValue || clusterSwitchValue;
 
+      console.debug(`Cluster: ${clusterArn}`);
+      console.debug(`Service: ${serviceArn}`);
       console.debug(`ClusterSwitchValue: ${clusterSwitchValue}`);
       console.debug(`ServiceSwitchValue: ${serviceSwitchValue}`);
       console.debug(`SwitchValue: ${switchValue}`);
